@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>TOR Code Lookup</title>
+<title>Olpy's Policing Hub</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Syne:wght@400;700;800&display=swap');
 
@@ -14,6 +14,9 @@
     --accent: #f5a623;
     --accent2: #e05c5c;
     --green: #4caf82;
+    --blue: #5b8dee;
+    --purple: #9b59b6;
+    --teal: #1abc9c;
     --text: #e8eaf0;
     --muted: #6b7080;
     --card: #1c1f28;
@@ -29,44 +32,136 @@
     padding: 0 0 60px 0;
   }
 
+  /* HEADER */
   header {
     background: var(--surface);
     border-bottom: 2px solid var(--accent);
-    padding: 18px 20px 14px;
+    padding: 16px 20px;
     position: sticky;
     top: 0;
     z-index: 100;
-  }
-
-  .header-top {
     display: flex;
     align-items: center;
-    gap: 10px;
-    margin-bottom: 12px;
+    gap: 12px;
+    min-height: 58px;
   }
 
-  .badge {
+  .menu-btn {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--accent);
+    font-size: 13px;
+    cursor: pointer;
+    padding: 5px 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    display: none;
+    flex-shrink: 0;
+  }
+
+  .header-title {
+    font-size: 16px;
+    font-weight: 800;
+    letter-spacing: -0.3px;
+    flex: 1;
+  }
+
+  .beta {
     background: var(--accent);
     color: #000;
     font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
+    font-size: 9px;
     font-weight: 700;
-    padding: 3px 7px;
+    padding: 2px 6px;
     letter-spacing: 1px;
+    flex-shrink: 0;
   }
 
-  h1 {
-    font-size: 18px;
+  /* PAGES */
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* HOME */
+  .home-hero {
+    padding: 44px 24px 28px;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .home-hero .crest { font-size: 50px; margin-bottom: 14px; }
+
+  .home-hero h1 {
+    font-size: 25px;
     font-weight: 800;
-    letter-spacing: -0.5px;
-    color: var(--text);
+    letter-spacing: -1px;
+    line-height: 1.2;
+    margin-bottom: 8px;
   }
 
-  .search-wrap {
-    position: relative;
+  .home-hero h1 span { color: var(--accent); }
+
+  .home-hero .subtitle {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 1.5px;
   }
 
-  input {
+  .home-grid {
+    padding: 20px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .home-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--accent);
+    padding: 18px 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    transition: background 0.15s;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .home-card:active { background: #22252f; }
+  .home-card.c-green  { border-left-color: var(--green); }
+  .home-card.c-blue   { border-left-color: var(--blue); }
+  .home-card.c-purple { border-left-color: var(--purple); }
+  .home-card.c-teal   { border-left-color: var(--teal); }
+  .home-card.c-red    { border-left-color: var(--accent2); }
+
+  .home-card .icon { font-size: 26px; flex-shrink: 0; }
+  .home-card .card-text { flex: 1; }
+
+  .home-card .card-title { font-size: 15px; font-weight: 800; margin-bottom: 2px; }
+
+  .home-card .card-desc {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+  }
+
+  .home-card .arrow { color: var(--muted); font-size: 20px; flex-shrink: 0; }
+
+  /* SUBPAGE HEADER */
+  .page-subheader {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 12px 16px;
+    position: sticky;
+    top: 58px;
+    z-index: 99;
+  }
+
+  /* TOR SEARCH */
+  .search-wrap { position: relative; }
+
+  input[type="search"] {
     width: 100%;
     background: var(--bg);
     border: 1.5px solid var(--border);
@@ -80,8 +175,8 @@
     border-radius: 0;
   }
 
-  input:focus { border-color: var(--accent); }
-  input::placeholder { color: var(--muted); }
+  input[type="search"]:focus { border-color: var(--accent); }
+  input[type="search"]::placeholder { color: var(--muted); }
 
   .clear-btn {
     position: absolute;
@@ -116,22 +211,23 @@
     gap: 10px;
   }
 
-  .card {
+  /* TOR CARDS */
+  .tor-card {
     background: var(--card);
     border: 1px solid var(--border);
     border-left: 3px solid var(--border);
     padding: 14px;
     cursor: pointer;
-    transition: border-color 0.15s, background 0.15s;
+    transition: background 0.15s;
     -webkit-tap-highlight-color: transparent;
   }
 
-  .card.endorsable { border-left-color: var(--accent2); }
-  .card.non-endorsable { border-left-color: var(--green); }
-  .card.court { border-left-color: #9b59b6; }
-  .card:active { background: #22252f; }
+  .tor-card.endorsable { border-left-color: var(--accent2); }
+  .tor-card.non-endorsable { border-left-color: var(--green); }
+  .tor-card.court { border-left-color: var(--purple); }
+  .tor-card:active { background: #22252f; }
 
-  .card-header {
+  .tor-card-header {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
@@ -159,44 +255,22 @@
 
   .tag.endorsable { background: rgba(224,92,92,0.15); color: var(--accent2); border: 1px solid var(--accent2); }
   .tag.non-endorsable { background: rgba(76,175,130,0.15); color: var(--green); border: 1px solid var(--green); }
-  .tag.court { background: rgba(155,89,182,0.15); color: #b07edc; border: 1px solid #9b59b6; }
+  .tag.court { background: rgba(155,89,182,0.15); color: #b07edc; border: 1px solid var(--purple); }
 
-  .desc {
-    font-size: 13px;
-    line-height: 1.5;
-    color: #c5c8d4;
-    margin-bottom: 8px;
-  }
+  .desc { font-size: 13px; line-height: 1.5; color: #c5c8d4; margin-bottom: 8px; }
+  .penalty { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--muted); }
 
-  .penalty {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    color: var(--muted);
-  }
-
-  .card-detail {
+  .tor-card-detail {
     display: none;
     margin-top: 10px;
     padding-top: 10px;
     border-top: 1px solid var(--border);
   }
 
-  .card.open .card-detail { display: block; }
+  .tor-card.open .tor-card-detail { display: block; }
 
-  .detail-row {
-    display: flex;
-    gap: 8px;
-    margin-bottom: 6px;
-    font-size: 12px;
-  }
-
-  .detail-label {
-    font-family: 'JetBrains Mono', monospace;
-    color: var(--muted);
-    min-width: 80px;
-    flex-shrink: 0;
-  }
-
+  .detail-row { display: flex; gap: 8px; margin-bottom: 6px; font-size: 12px; }
+  .detail-label { font-family: 'JetBrains Mono', monospace; color: var(--muted); min-width: 80px; flex-shrink: 0; }
   .detail-val { color: var(--text); line-height: 1.5; }
 
   .no-results {
@@ -208,31 +282,426 @@
   }
 
   .no-results .icon { font-size: 36px; margin-bottom: 12px; }
+  mark { background: rgba(245,166,35,0.25); color: var(--accent); border-radius: 2px; }
 
-  mark {
-    background: rgba(245,166,35,0.25);
-    color: var(--accent);
-    border-radius: 2px;
+  /* SUBCATEGORY LIST */
+  .subcat-list {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
   }
+
+  .subcat-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--blue);
+    padding: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    -webkit-tap-highlight-color: transparent;
+    transition: background 0.15s;
+  }
+
+  .subcat-card:active { background: #22252f; }
+  .subcat-card .s-text { flex: 1; }
+  .subcat-card .s-title { font-size: 15px; font-weight: 800; margin-bottom: 2px; }
+  .subcat-card .s-desc { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--muted); }
+  .subcat-card .arrow { color: var(--muted); font-size: 20px; }
+
+  /* CONTENT PAGES */
+  .content-page { padding: 16px; }
+
+  .section-intro {
+    background: var(--card);
+    border-left: 3px solid var(--blue);
+    padding: 12px 14px;
+    margin-bottom: 16px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* IC CODES */
+  .ic-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--blue);
+    padding: 14px;
+    margin-bottom: 10px;
+  }
+
+  .ic-code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--blue);
+    margin-bottom: 4px;
+  }
+
+  .ic-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+
+  .ic-examples {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    line-height: 1.6;
+    background: var(--bg);
+    padding: 8px 10px;
+    border: 1px solid var(--border);
+  }
+
+  /* CALL GRADES */
+  .grade-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 16px;
+    margin-bottom: 10px;
+    border-left: 4px solid var(--accent);
+  }
+
+  .grade-card.sig  { border-left-color: var(--blue); }
+  .grade-card.ext  { border-left-color: var(--green); }
+  .grade-card.ref  { border-left-color: var(--muted); }
+
+  .grade-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+
+  .grade-letter {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 22px;
+    font-weight: 700;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--accent);
+    color: var(--accent);
+    flex-shrink: 0;
+  }
+
+  .grade-card.sig  .grade-letter { border-color: var(--blue); color: var(--blue); }
+  .grade-card.ext  .grade-letter { border-color: var(--green); color: var(--green); }
+  .grade-card.ref  .grade-letter { border-color: var(--muted); color: var(--muted); }
+
+  .grade-name { font-size: 16px; font-weight: 800; }
+
+  .grade-body {
+    font-size: 12px;
+    color: #c5c8d4;
+    line-height: 1.6;
+    margin-bottom: 10px;
+  }
+
+  .grade-meta {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .grade-pill {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    padding: 3px 10px;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    letter-spacing: 0.3px;
+  }
+
+  .grade-card.sig  .grade-pill { border-color: var(--blue); color: var(--blue); }
+  .grade-card.ext  .grade-pill { border-color: var(--green); color: var(--green); }
+  .grade-card.ref  .grade-pill { border-color: var(--muted); color: var(--muted); }
+
+  /* PLACEHOLDER */
+  .placeholder {
+    text-align: center;
+    padding: 80px 30px;
+    color: var(--muted);
+  }
+
+  .placeholder .big-icon { font-size: 52px; margin-bottom: 16px; }
+  .placeholder h2 { font-size: 20px; font-weight: 800; color: var(--text); margin-bottom: 10px; }
+  .placeholder p { font-family: 'JetBrains Mono', monospace; font-size: 12px; line-height: 1.8; }
+  .placeholder .coming { display: inline-block; margin-top: 16px; background: var(--border); font-family: 'JetBrains Mono', monospace; font-size: 10px; padding: 4px 12px; letter-spacing: 1px; color: var(--muted); }
 </style>
 </head>
 <body>
 
 <header>
-  <div class="header-top">
-    <div class="badge">POLICE</div>
-    <h1>TOR Code Lookup</h1>
-  </div>
-  <div class="search-wrap">
-    <input type="search" id="search" placeholder="Search code or keyword…" autocomplete="off" autocorrect="off" spellcheck="false">
-    <button class="clear-btn" id="clearBtn" onclick="clearSearch()">✕</button>
-  </div>
+  <button class="menu-btn" id="menuBtn" onclick="navBack()">‹ BACK</button>
+  <div class="header-title" id="headerTitle">Olpy's Policing Hub</div>
+  <div class="beta">BETA</div>
 </header>
 
-<div class="results-info" id="info">Showing <span id="count">71</span> offences</div>
-<div class="results" id="results"></div>
+<!-- HOME -->
+<div class="page active" id="page-home">
+  <div class="home-hero">
+    <div class="crest">🚔</div>
+    <h1>Olpy's <span>Policing</span> Hub</h1>
+    <div class="subtitle">SELECT A CATEGORY TO BEGIN</div>
+  </div>
+  <div class="home-grid">
+    <div class="home-card" onclick="showPage('tor', 'TOR Codes', 'home')">
+      <div class="icon">📋</div>
+      <div class="card-text">
+        <div class="card-title">TOR Codes</div>
+        <div class="card-desc">Search traffic offence codes & penalties</div>
+      </div>
+      <div class="arrow">›</div>
+    </div>
+    <div class="home-card c-green" onclick="showPage('abbreviations', 'Abbreviations', 'home')">
+      <div class="icon">🔤</div>
+      <div class="card-text">
+        <div class="card-title">Abbreviations</div>
+        <div class="card-desc">Common policing abbreviations & terms</div>
+      </div>
+      <div class="arrow">›</div>
+    </div>
+    <div class="home-card c-red" onclick="showPage('plates', 'Number Plates', 'home')">
+      <div class="icon">🔢</div>
+      <div class="card-text">
+        <div class="card-title">Number Plates</div>
+        <div class="card-desc">Number plate formats & reference guide</div>
+      </div>
+      <div class="arrow">›</div>
+    </div>
+    <div class="home-card c-blue" onclick="showPage('useful', 'Useful Information', 'home')">
+      <div class="icon">📖</div>
+      <div class="card-text">
+        <div class="card-title">Useful Information</div>
+        <div class="card-desc">Identity codes, call grades & more</div>
+      </div>
+      <div class="arrow">›</div>
+    </div>
+    <div class="home-card c-teal" onclick="showPage('firstaid', 'First Aid', 'home')">
+      <div class="icon">🩺</div>
+      <div class="card-text">
+        <div class="card-title">First Aid</div>
+        <div class="card-desc">First aid reference & guidance</div>
+      </div>
+      <div class="arrow">›</div>
+    </div>
+  </div>
+</div>
+
+<!-- TOR CODES -->
+<div class="page" id="page-tor">
+  <div class="page-subheader">
+    <div class="search-wrap">
+      <input type="search" id="search" placeholder="Search code or keyword…" autocomplete="off" autocorrect="off" spellcheck="false">
+      <button class="clear-btn" id="clearBtn" onclick="clearSearch()">✕</button>
+    </div>
+  </div>
+  <div class="results-info">Showing <span id="count">0</span> offences</div>
+  <div class="results" id="results"></div>
+</div>
+
+<!-- ABBREVIATIONS -->
+<div class="page" id="page-abbreviations">
+  <div class="placeholder">
+    <div class="big-icon">🔤</div>
+    <h2>Abbreviations</h2>
+    <p>This section is coming soon.</p>
+    <div class="coming">COMING SOON</div>
+  </div>
+</div>
+
+<!-- NUMBER PLATES -->
+<div class="page" id="page-plates">
+  <div class="placeholder">
+    <div class="big-icon">🔢</div>
+    <h2>Number Plates</h2>
+    <p>This section is coming soon.</p>
+    <div class="coming">COMING SOON</div>
+  </div>
+</div>
+
+<!-- USEFUL INFORMATION (subcategory list) -->
+<div class="page" id="page-useful">
+  <div class="subcat-list">
+    <div class="subcat-card" onclick="showPage('ic-codes', 'Identity Codes', 'useful')">
+      <div class="icon" style="font-size:24px">🪪</div>
+      <div class="s-text">
+        <div class="s-title">Identity Codes</div>
+        <div class="s-desc">Used to identify suspects based on race.</div>
+      </div>
+      <div class="arrow">›</div>
+    </div>
+    <div class="subcat-card" onclick="showPage('call-grades', 'Call Grades', 'useful')">
+      <div class="icon" style="font-size:24px">📡</div>
+      <div class="s-text">
+        <div class="s-title">Call Grades</div>
+        <div class="s-desc">Call grades are used to identify the call urgency, and response time.</div>
+      </div>
+      <div class="arrow">›</div>
+    </div>
+  </div>
+</div>
+
+<!-- IC CODES -->
+<div class="page" id="page-ic-codes">
+  <div class="content-page">
+    <div class="section-intro">Used to identify suspects based on appearance/ethnicity.</div>
+
+    <div class="ic-card">
+      <div class="ic-code">IC1</div>
+      <div class="ic-label">White-skinned European</div>
+      <div class="ic-examples">English, Scottish, Welsh, French, German, Swedish, Norwegian, Polish, Russian</div>
+    </div>
+
+    <div class="ic-card">
+      <div class="ic-code">IC2</div>
+      <div class="ic-label">Dark-skinned European</div>
+      <div class="ic-examples">Greek, Cypriot, Turkish, Sicilian, Sardinian, Spanish, Italian</div>
+    </div>
+
+    <div class="ic-card">
+      <div class="ic-code">IC3</div>
+      <div class="ic-label">African-Caribbean</div>
+      <div class="ic-examples">West Indian, Guyanese, Black African (including those with light complexion)</div>
+    </div>
+
+    <div class="ic-card">
+      <div class="ic-code">IC4</div>
+      <div class="ic-label">South Asian</div>
+      <div class="ic-examples">Indian, Pakistani, Bangladeshi or Sri Lankan</div>
+    </div>
+
+    <div class="ic-card">
+      <div class="ic-code">IC5</div>
+      <div class="ic-label">South/East Asian</div>
+      <div class="ic-examples">Malaysian, Burmese, Filipino, Mongolian</div>
+    </div>
+
+    <div class="ic-card">
+      <div class="ic-code">IC6</div>
+      <div class="ic-label">Arabian/North African</div>
+      <div class="ic-examples">Algerian, Tunisian, Moroccan and North African</div>
+    </div>
+
+    <div class="ic-card">
+      <div class="ic-code">IC0 / IC7 / IC9</div>
+      <div class="ic-label">Unknown</div>
+      <div class="ic-examples">Origin/appearance not determined</div>
+    </div>
+  </div>
+</div>
+
+<!-- CALL GRADES -->
+<div class="page" id="page-call-grades">
+  <div class="content-page">
+    <div class="section-intro">Call grades identify the urgency of a call and the expected response time.</div>
+
+    <div class="grade-card">
+      <div class="grade-header">
+        <div class="grade-letter">I</div>
+        <div class="grade-name">Immediate</div>
+      </div>
+      <div class="grade-body">The immediate presence of a police officer will have a significant impact on the outcome. Typically where there is, or is likely to be, a danger to life, serious threat of violence, serious damage to property or serious injury.</div>
+      <div class="grade-meta">
+        <div class="grade-pill">⏱ 15 MINUTES</div>
+        <div class="grade-pill">🚨 SIRENS & ELS</div>
+      </div>
+    </div>
+
+    <div class="grade-card sig">
+      <div class="grade-header">
+        <div class="grade-letter">S</div>
+        <div class="grade-name">Significant</div>
+      </div>
+      <div class="grade-body">There is a degree of importance or urgency associated with the initial police action, but an emergency response is not required.</div>
+      <div class="grade-meta">
+        <div class="grade-pill">⏱ 60 MINUTES</div>
+        <div class="grade-pill">🔵 ELS ONLY</div>
+      </div>
+    </div>
+
+    <div class="grade-card ext">
+      <div class="grade-header">
+        <div class="grade-letter">E</div>
+        <div class="grade-name">Extended</div>
+      </div>
+      <div class="grade-body">Police attendance is required, but an emergency response is not. No lights or sirens needed.</div>
+      <div class="grade-meta">
+        <div class="grade-pill">⏱ 48 HOURS</div>
+        <div class="grade-pill">🟢 NO ELS OR SIRENS</div>
+      </div>
+    </div>
+
+    <div class="grade-card ref">
+      <div class="grade-header">
+        <div class="grade-letter">R</div>
+        <div class="grade-name">Referred</div>
+      </div>
+      <div class="grade-body">Police attendance is not required. The caller has been dealt with appropriately by the call handler.</div>
+      <div class="grade-meta">
+        <div class="grade-pill">⛔ NO RESPONSE NEEDED</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FIRST AID -->
+<div class="page" id="page-firstaid">
+  <div class="placeholder">
+    <div class="big-icon">🩺</div>
+    <h2>First Aid</h2>
+    <p>This section is coming soon.</p>
+    <div class="coming">COMING SOON</div>
+  </div>
+</div>
 
 <script>
+// Navigation stack
+let navStack = [];
+
+function showPage(id, title, parentId) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  document.getElementById('headerTitle').textContent = title;
+  document.getElementById('menuBtn').style.display = id === 'home' ? 'none' : 'block';
+  window.scrollTo(0, 0);
+  if (parentId) navStack.push(parentId);
+  if (id === 'tor') render('');
+}
+
+function navBack() {
+  const prev = navStack.pop();
+  if (!prev) return goHome();
+  const titles = {
+    home: "Olpy's Policing Hub",
+    useful: 'Useful Information',
+    tor: 'TOR Codes',
+    abbreviations: 'Abbreviations',
+    plates: 'Number Plates',
+    firstaid: 'First Aid'
+  };
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + prev).classList.add('active');
+  document.getElementById('headerTitle').textContent = titles[prev] || "Olpy's Policing Hub";
+  document.getElementById('menuBtn').style.display = prev === 'home' ? 'none' : 'block';
+  window.scrollTo(0, 0);
+}
+
+function goHome() {
+  navStack = [];
+  showPage('home', "Olpy's Policing Hub", null);
+}
+
+// TOR DATA
 const raw = `RT88096 - Use motor vehicle on road without valid test certificate (MOT) - £100 non-endorsable
 RT88191 - Use motor vehicle on road/public place with no insurance - 6 points endorsable £200+ FPN
 RT88320 - Permit another to drive without insurance - 6 points endorsable
@@ -327,22 +796,22 @@ function render(query) {
   const q = query.trim().toLowerCase();
   const filtered = q ? offences.filter(o => o.raw.includes(q)) : offences;
   document.getElementById('count').textContent = filtered.length;
-
   const container = document.getElementById('results');
+
   if (filtered.length === 0) {
     container.innerHTML = `<div class="no-results"><div class="icon">🔍</div>No offences found for "${query}"</div>`;
     return;
   }
 
-  container.innerHTML = filtered.map((o, i) => `
-    <div class="card ${o.type}" onclick="toggle(this)">
-      <div class="card-header">
+  container.innerHTML = filtered.map(o => `
+    <div class="tor-card ${o.type}" onclick="toggle(this)">
+      <div class="tor-card-header">
         <div class="code">${highlight(o.code, query)}</div>
         <div class="tag ${o.type}">${tagLabel(o.type)}</div>
       </div>
       <div class="desc">${highlight(o.desc, query)}</div>
       <div class="penalty">${highlight(o.penalty, query)}</div>
-      <div class="card-detail">
+      <div class="tor-card-detail">
         <div class="detail-row"><div class="detail-label">Code</div><div class="detail-val">${o.code}</div></div>
         <div class="detail-row"><div class="detail-label">Offence</div><div class="detail-val">${o.desc}</div></div>
         <div class="detail-row"><div class="detail-label">Penalty</div><div class="detail-val">${o.penalty}</div></div>
@@ -354,7 +823,7 @@ function render(query) {
 
 function toggle(card) {
   const isOpen = card.classList.contains('open');
-  document.querySelectorAll('.card.open').forEach(c => c.classList.remove('open'));
+  document.querySelectorAll('.tor-card.open').forEach(c => c.classList.remove('open'));
   if (!isOpen) card.classList.add('open');
 }
 
@@ -369,7 +838,7 @@ document.getElementById('search').addEventListener('input', function() {
   render(this.value);
 });
 
-render('');
+showPage('home', "Olpy's Policing Hub", null);
 </script>
 </body>
 </html>
