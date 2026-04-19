@@ -32,25 +32,24 @@
     padding: 0 0 60px 0;
   }
 
-  /* HEADER */
   header {
     background: var(--surface);
     border-bottom: 2px solid var(--accent);
-    padding: 16px 20px;
+    padding: 14px 16px;
     position: sticky;
     top: 0;
     z-index: 100;
     display: flex;
     align-items: center;
-    gap: 12px;
-    min-height: 58px;
+    gap: 10px;
+    min-height: 54px;
   }
 
   .menu-btn {
     background: none;
     border: 1px solid var(--border);
     color: var(--accent);
-    font-size: 13px;
+    font-size: 12px;
     cursor: pointer;
     padding: 5px 10px;
     font-family: 'JetBrains Mono', monospace;
@@ -58,13 +57,17 @@
     letter-spacing: 0.5px;
     display: none;
     flex-shrink: 0;
+    white-space: nowrap;
   }
 
   .header-title {
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 800;
     letter-spacing: -0.3px;
     flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .beta {
@@ -78,25 +81,24 @@
     flex-shrink: 0;
   }
 
-  /* PAGES */
   .page { display: none; }
   .page.active { display: block; }
 
   /* HOME */
   .home-hero {
-    padding: 44px 24px 28px;
+    padding: 40px 24px 24px;
     text-align: center;
     border-bottom: 1px solid var(--border);
   }
 
-  .home-hero .crest { font-size: 50px; margin-bottom: 14px; }
+  .home-hero .crest { font-size: 48px; margin-bottom: 12px; }
 
   .home-hero h1 {
-    font-size: 25px;
+    font-size: 24px;
     font-weight: 800;
     letter-spacing: -1px;
     line-height: 1.2;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
   }
 
   .home-hero h1 span { color: var(--accent); }
@@ -109,7 +111,7 @@
   }
 
   .home-grid {
-    padding: 20px 16px;
+    padding: 16px;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -119,7 +121,7 @@
     background: var(--card);
     border: 1px solid var(--border);
     border-left: 4px solid var(--accent);
-    padding: 18px 16px;
+    padding: 16px;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -134,49 +136,71 @@
   .home-card.c-purple { border-left-color: var(--purple); }
   .home-card.c-teal   { border-left-color: var(--teal); }
   .home-card.c-red    { border-left-color: var(--accent2); }
+  .home-card.c-orange { border-left-color: #e67e22; }
 
-  .home-card .icon { font-size: 26px; flex-shrink: 0; }
+  .home-card .icon { font-size: 24px; flex-shrink: 0; }
   .home-card .card-text { flex: 1; }
-
-  .home-card .card-title { font-size: 15px; font-weight: 800; margin-bottom: 2px; }
-
-  .home-card .card-desc {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    color: var(--muted);
-  }
-
+  .home-card .card-title { font-size: 14px; font-weight: 800; margin-bottom: 2px; }
+  .home-card .card-desc { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--muted); }
   .home-card .arrow { color: var(--muted); font-size: 20px; flex-shrink: 0; }
 
-  /* SUBPAGE HEADER */
+  /* SUBCAT LIST */
+  .subcat-list { padding: 14px; display: flex; flex-direction: column; gap: 10px; }
+
+  .subcat-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--blue);
+    padding: 14px 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    -webkit-tap-highlight-color: transparent;
+    transition: background 0.15s;
+  }
+
+  .subcat-card:active { background: #22252f; }
+  .subcat-card.c-purple { border-left-color: var(--purple); }
+  .subcat-card.c-green  { border-left-color: var(--green); }
+  .subcat-card.c-teal   { border-left-color: var(--teal); }
+  .subcat-card.c-red    { border-left-color: var(--accent2); }
+  .subcat-card.c-orange { border-left-color: #e67e22; }
+  .subcat-card.c-accent { border-left-color: var(--accent); }
+
+  .subcat-card .s-text { flex: 1; }
+  .subcat-card .s-title { font-size: 14px; font-weight: 800; margin-bottom: 2px; }
+  .subcat-card .s-desc { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--muted); }
+  .subcat-card .arrow { color: var(--muted); font-size: 20px; }
+
+  /* SEARCH BAR */
   .page-subheader {
     background: var(--surface);
     border-bottom: 1px solid var(--border);
     padding: 12px 16px;
     position: sticky;
-    top: 58px;
+    top: 54px;
     z-index: 99;
   }
 
-  /* TOR SEARCH */
   .search-wrap { position: relative; }
 
-  input[type="search"] {
+  input[type="search"], input[type="text"] {
     width: 100%;
     background: var(--bg);
     border: 1.5px solid var(--border);
     color: var(--text);
     font-family: 'JetBrains Mono', monospace;
-    font-size: 15px;
-    padding: 12px 42px 12px 14px;
+    font-size: 14px;
+    padding: 11px 40px 11px 14px;
     outline: none;
     transition: border-color 0.2s;
     -webkit-appearance: none;
     border-radius: 0;
   }
 
-  input[type="search"]:focus { border-color: var(--accent); }
-  input[type="search"]::placeholder { color: var(--muted); }
+  input:focus { border-color: var(--accent); }
+  input::placeholder { color: var(--muted); }
 
   .clear-btn {
     position: absolute;
@@ -186,7 +210,7 @@
     background: none;
     border: none;
     color: var(--muted);
-    font-size: 18px;
+    font-size: 16px;
     cursor: pointer;
     display: none;
     padding: 4px;
@@ -194,29 +218,23 @@
   }
 
   .results-info {
-    padding: 10px 20px;
+    padding: 9px 16px;
     font-family: 'JetBrains Mono', monospace;
     font-size: 11px;
     color: var(--muted);
-    letter-spacing: 0.5px;
     border-bottom: 1px solid var(--border);
   }
 
   .results-info span { color: var(--accent); }
 
-  .results {
-    padding: 12px 16px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
+  .results { padding: 12px 14px; display: flex; flex-direction: column; gap: 10px; }
 
   /* TOR CARDS */
   .tor-card {
     background: var(--card);
     border: 1px solid var(--border);
     border-left: 3px solid var(--border);
-    padding: 14px;
+    padding: 13px;
     cursor: pointer;
     transition: background 0.15s;
     -webkit-tap-highlight-color: transparent;
@@ -227,215 +245,132 @@
   .tor-card.court { border-left-color: var(--purple); }
   .tor-card:active { background: #22252f; }
 
-  .tor-card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 8px;
-    margin-bottom: 6px;
-  }
+  .tor-card-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; margin-bottom: 6px; }
 
-  .code {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--accent);
-    letter-spacing: 1px;
-    flex-shrink: 0;
-  }
+  .code { font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 700; color: var(--accent); letter-spacing: 1px; flex-shrink: 0; }
 
-  .tag {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 9px;
-    font-weight: 600;
-    padding: 3px 7px;
-    letter-spacing: 0.5px;
-    flex-shrink: 0;
-  }
-
+  .tag { font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 600; padding: 3px 7px; letter-spacing: 0.5px; flex-shrink: 0; }
   .tag.endorsable { background: rgba(224,92,92,0.15); color: var(--accent2); border: 1px solid var(--accent2); }
   .tag.non-endorsable { background: rgba(76,175,130,0.15); color: var(--green); border: 1px solid var(--green); }
   .tag.court { background: rgba(155,89,182,0.15); color: #b07edc; border: 1px solid var(--purple); }
 
-  .desc { font-size: 13px; line-height: 1.5; color: #c5c8d4; margin-bottom: 8px; }
+  .desc { font-size: 12px; line-height: 1.5; color: #c5c8d4; margin-bottom: 6px; }
   .penalty { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--muted); }
 
-  .tor-card-detail {
-    display: none;
-    margin-top: 10px;
-    padding-top: 10px;
-    border-top: 1px solid var(--border);
-  }
-
+  .tor-card-detail { display: none; margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border); }
   .tor-card.open .tor-card-detail { display: block; }
 
   .detail-row { display: flex; gap: 8px; margin-bottom: 6px; font-size: 12px; }
-  .detail-label { font-family: 'JetBrains Mono', monospace; color: var(--muted); min-width: 80px; flex-shrink: 0; }
+  .detail-label { font-family: 'JetBrains Mono', monospace; color: var(--muted); min-width: 78px; flex-shrink: 0; }
   .detail-val { color: var(--text); line-height: 1.5; }
 
-  .no-results {
-    text-align: center;
-    padding: 60px 20px;
-    color: var(--muted);
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 13px;
-  }
+  .no-results { text-align: center; padding: 50px 20px; color: var(--muted); font-family: 'JetBrains Mono', monospace; font-size: 12px; }
+  .no-results .ni { font-size: 32px; margin-bottom: 10px; }
 
-  .no-results .icon { font-size: 36px; margin-bottom: 12px; }
   mark { background: rgba(245,166,35,0.25); color: var(--accent); border-radius: 2px; }
 
-  /* SUBCATEGORY LIST */
-  .subcat-list {
-    padding: 16px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .subcat-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-left: 3px solid var(--blue);
-    padding: 16px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    -webkit-tap-highlight-color: transparent;
-    transition: background 0.15s;
-  }
-
-  .subcat-card:active { background: #22252f; }
-  .subcat-card .s-text { flex: 1; }
-  .subcat-card .s-title { font-size: 15px; font-weight: 800; margin-bottom: 2px; }
-  .subcat-card .s-desc { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--muted); }
-  .subcat-card .arrow { color: var(--muted); font-size: 20px; }
-
-  /* CONTENT PAGES */
-  .content-page { padding: 16px; }
+  /* CONTENT PAGE */
+  .content-page { padding: 14px; }
 
   .section-intro {
     background: var(--card);
     border-left: 3px solid var(--blue);
-    padding: 12px 14px;
-    margin-bottom: 16px;
+    padding: 10px 13px;
+    margin-bottom: 14px;
     font-family: 'JetBrains Mono', monospace;
     font-size: 11px;
     color: var(--muted);
     line-height: 1.6;
   }
+
+  /* POWERS */
+  .power-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--purple);
+    padding: 13px;
+    margin-bottom: 10px;
+  }
+
+  .power-name { font-size: 13px; font-weight: 800; color: var(--text); margin-bottom: 5px; line-height: 1.4; }
+  .power-leg { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--accent); letter-spacing: 0.3px; }
+  .power-leg.na { color: var(--muted); }
 
   /* IC CODES */
-  .ic-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-left: 3px solid var(--blue);
-    padding: 14px;
-    margin-bottom: 10px;
-  }
-
-  .ic-code {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 14px;
-    font-weight: 700;
-    color: var(--blue);
-    margin-bottom: 4px;
-  }
-
-  .ic-label {
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--text);
-    margin-bottom: 6px;
-  }
-
-  .ic-examples {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    color: var(--muted);
-    line-height: 1.6;
-    background: var(--bg);
-    padding: 8px 10px;
-    border: 1px solid var(--border);
-  }
+  .ic-card { background: var(--card); border: 1px solid var(--border); border-left: 3px solid var(--blue); padding: 13px; margin-bottom: 10px; }
+  .ic-code { font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: 700; color: var(--blue); margin-bottom: 4px; }
+  .ic-label { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+  .ic-examples { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--muted); line-height: 1.6; background: var(--bg); padding: 7px 10px; border: 1px solid var(--border); }
 
   /* CALL GRADES */
-  .grade-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    padding: 16px;
-    margin-bottom: 10px;
-    border-left: 4px solid var(--accent);
-  }
-
+  .grade-card { background: var(--card); border: 1px solid var(--border); padding: 15px; margin-bottom: 10px; border-left: 4px solid var(--accent); }
   .grade-card.sig  { border-left-color: var(--blue); }
   .grade-card.ext  { border-left-color: var(--green); }
   .grade-card.ref  { border-left-color: var(--muted); }
 
-  .grade-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 8px;
-  }
+  .grade-header { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .grade-letter { font-family: 'JetBrains Mono', monospace; font-size: 20px; font-weight: 700; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; border: 2px solid var(--accent); color: var(--accent); flex-shrink: 0; }
+  .grade-card.sig .grade-letter { border-color: var(--blue); color: var(--blue); }
+  .grade-card.ext .grade-letter { border-color: var(--green); color: var(--green); }
+  .grade-card.ref .grade-letter { border-color: var(--muted); color: var(--muted); }
 
-  .grade-letter {
+  .grade-name { font-size: 15px; font-weight: 800; }
+  .grade-body { font-size: 12px; color: #c5c8d4; line-height: 1.6; margin-bottom: 10px; }
+  .grade-meta { display: flex; gap: 6px; flex-wrap: wrap; }
+  .grade-pill { font-family: 'JetBrains Mono', monospace; font-size: 10px; padding: 3px 9px; border: 1px solid var(--accent); color: var(--accent); }
+  .grade-card.sig .grade-pill { border-color: var(--blue); color: var(--blue); }
+  .grade-card.ext .grade-pill { border-color: var(--green); color: var(--green); }
+  .grade-card.ref .grade-pill { border-color: var(--muted); color: var(--muted); }
+
+  /* PNC FORCE CODES */
+  .pnc-section-header {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 22px;
+    font-size: 11px;
     font-weight: 700;
-    width: 36px;
-    height: 36px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 2px solid var(--accent);
     color: var(--accent);
-    flex-shrink: 0;
+    letter-spacing: 2px;
+    padding: 10px 0 6px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 8px;
+    margin-top: 16px;
   }
 
-  .grade-card.sig  .grade-letter { border-color: var(--blue); color: var(--blue); }
-  .grade-card.ext  .grade-letter { border-color: var(--green); color: var(--green); }
-  .grade-card.ref  .grade-letter { border-color: var(--muted); color: var(--muted); }
+  .pnc-section-header:first-of-type { margin-top: 0; }
 
-  .grade-name { font-size: 16px; font-weight: 800; }
+  .pnc-row {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 10px 12px;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
 
-  .grade-body {
-    font-size: 12px;
-    color: #c5c8d4;
-    line-height: 1.6;
+  .pnc-code { font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 700; color: var(--accent); min-width: 30px; flex-shrink: 0; }
+  .pnc-name { font-size: 12px; color: var(--text); line-height: 1.4; }
+  .pnc-abbr { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--blue); margin-top: 2px; }
+
+  /* METHANE */
+  .methane-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--accent2);
+    padding: 16px;
     margin-bottom: 10px;
   }
 
-  .grade-meta {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-  }
-
-  .grade-pill {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    padding: 3px 10px;
-    border: 1px solid var(--accent);
-    color: var(--accent);
-    letter-spacing: 0.3px;
-  }
-
-  .grade-card.sig  .grade-pill { border-color: var(--blue); color: var(--blue); }
-  .grade-card.ext  .grade-pill { border-color: var(--green); color: var(--green); }
-  .grade-card.ref  .grade-pill { border-color: var(--muted); color: var(--muted); }
+  .methane-header { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+  .methane-letter { font-family: 'JetBrains Mono', monospace; font-size: 24px; font-weight: 700; color: var(--accent2); width: 36px; flex-shrink: 0; }
+  .methane-title { font-size: 14px; font-weight: 800; color: var(--text); }
+  .methane-sub { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--muted); line-height: 1.5; }
 
   /* PLACEHOLDER */
-  .placeholder {
-    text-align: center;
-    padding: 80px 30px;
-    color: var(--muted);
-  }
-
-  .placeholder .big-icon { font-size: 52px; margin-bottom: 16px; }
-  .placeholder h2 { font-size: 20px; font-weight: 800; color: var(--text); margin-bottom: 10px; }
+  .placeholder { text-align: center; padding: 70px 30px; color: var(--muted); }
+  .placeholder .big-icon { font-size: 48px; margin-bottom: 14px; }
+  .placeholder h2 { font-size: 19px; font-weight: 800; color: var(--text); margin-bottom: 8px; }
   .placeholder p { font-family: 'JetBrains Mono', monospace; font-size: 12px; line-height: 1.8; }
-  .placeholder .coming { display: inline-block; margin-top: 16px; background: var(--border); font-family: 'JetBrains Mono', monospace; font-size: 10px; padding: 4px 12px; letter-spacing: 1px; color: var(--muted); }
+  .placeholder .coming { display: inline-block; margin-top: 14px; background: var(--border); font-family: 'JetBrains Mono', monospace; font-size: 10px; padding: 4px 12px; letter-spacing: 1px; color: var(--muted); }
 </style>
 </head>
 <body>
@@ -454,7 +389,15 @@
     <div class="subtitle">SELECT A CATEGORY TO BEGIN</div>
   </div>
   <div class="home-grid">
-    <div class="home-card" onclick="showPage('tor', 'TOR Codes', 'home')">
+    <div class="home-card c-purple" onclick="nav('powers','Policing Powers','home')">
+      <div class="icon">⚖️</div>
+      <div class="card-text">
+        <div class="card-title">Policing Powers</div>
+        <div class="card-desc">Arrest, search, entry & more</div>
+      </div>
+      <div class="arrow">›</div>
+    </div>
+    <div class="home-card" onclick="nav('tor','TOR Codes','home'); render('');">
       <div class="icon">📋</div>
       <div class="card-text">
         <div class="card-title">TOR Codes</div>
@@ -462,7 +405,7 @@
       </div>
       <div class="arrow">›</div>
     </div>
-    <div class="home-card c-green" onclick="showPage('abbreviations', 'Abbreviations', 'home')">
+    <div class="home-card c-green" onclick="nav('abbreviations','Abbreviations','home')">
       <div class="icon">🔤</div>
       <div class="card-text">
         <div class="card-title">Abbreviations</div>
@@ -470,7 +413,7 @@
       </div>
       <div class="arrow">›</div>
     </div>
-    <div class="home-card c-red" onclick="showPage('plates', 'Number Plates', 'home')">
+    <div class="home-card c-red" onclick="nav('plates','Number Plates','home')">
       <div class="icon">🔢</div>
       <div class="card-text">
         <div class="card-title">Number Plates</div>
@@ -478,7 +421,7 @@
       </div>
       <div class="arrow">›</div>
     </div>
-    <div class="home-card c-blue" onclick="showPage('useful', 'Useful Information', 'home')">
+    <div class="home-card c-blue" onclick="nav('useful','Useful Information','home')">
       <div class="icon">📖</div>
       <div class="card-text">
         <div class="card-title">Useful Information</div>
@@ -486,7 +429,7 @@
       </div>
       <div class="arrow">›</div>
     </div>
-    <div class="home-card c-teal" onclick="showPage('firstaid', 'First Aid', 'home')">
+    <div class="home-card c-teal" onclick="nav('firstaid','First Aid','home')">
       <div class="icon">🩺</div>
       <div class="card-text">
         <div class="card-title">First Aid</div>
@@ -497,16 +440,218 @@
   </div>
 </div>
 
+<!-- POLICING POWERS -->
+<div class="page" id="page-powers">
+  <div class="subcat-list">
+    <div class="subcat-card c-red" onclick="nav('pow-arrest','Powers of Arrest','powers')">
+      <div class="icon" style="font-size:22px">🚨</div>
+      <div class="s-text"><div class="s-title">Powers of Arrest</div><div class="s-desc">Warrant & without warrant</div></div>
+      <div class="arrow">›</div>
+    </div>
+    <div class="subcat-card c-orange" onclick="nav('pow-force','Use of Force Powers','powers')">
+      <div class="icon" style="font-size:22px">✊</div>
+      <div class="s-text"><div class="s-title">Use of Force Powers</div><div class="s-desc">Common law & statutory powers</div></div>
+      <div class="arrow">›</div>
+    </div>
+    <div class="subcat-card c-accent" onclick="nav('pow-search','Search Powers','powers')">
+      <div class="icon" style="font-size:22px">🔍</div>
+      <div class="s-text"><div class="s-title">Search Powers</div><div class="s-desc">Stop & search, premises, drugs</div></div>
+      <div class="arrow">›</div>
+    </div>
+    <div class="subcat-card c-blue" onclick="nav('pow-entry','Powers of Entry','powers')">
+      <div class="icon" style="font-size:22px">🚪</div>
+      <div class="s-text"><div class="s-title">Powers of Entry</div><div class="s-desc">Entry after arrest, save life</div></div>
+      <div class="arrow">›</div>
+    </div>
+    <div class="subcat-card c-purple" onclick="nav('pow-public','Public Order / ASB Powers','powers')">
+      <div class="icon" style="font-size:22px">📢</div>
+      <div class="s-text"><div class="s-title">Public Order / ASB Powers</div><div class="s-desc">Dispersal, disguises, ASB</div></div>
+      <div class="arrow">›</div>
+    </div>
+    <div class="subcat-card c-green" onclick="nav('pow-road','Road Policing Powers','powers')">
+      <div class="icon" style="font-size:22px">🚗</div>
+      <div class="s-text"><div class="s-title">Road Policing Powers</div><div class="s-desc">Stop, seize, licence powers</div></div>
+      <div class="arrow">›</div>
+    </div>
+    <div class="subcat-card c-teal" onclick="nav('pow-mha','Mental Health Act Powers','powers')">
+      <div class="icon" style="font-size:22px">🧠</div>
+      <div class="s-text"><div class="s-title">Mental Health Act Powers</div><div class="s-desc">Section 136 & related</div></div>
+      <div class="arrow">›</div>
+    </div>
+    <div class="subcat-card c-red" onclick="nav('pow-seizure','Seizure Powers','powers')">
+      <div class="icon" style="font-size:22px">📦</div>
+      <div class="s-text"><div class="s-title">Seizure Powers</div><div class="s-desc">General & vehicle seizure</div></div>
+      <div class="arrow">›</div>
+    </div>
+  </div>
+</div>
+
+<!-- POWERS OF ARREST -->
+<div class="page" id="page-pow-arrest">
+  <div class="content-page">
+    <div class="power-card">
+      <div class="power-name">Arrest with Warrant</div>
+      <div class="power-leg">Section 1 – Magistrates Court Act 1980</div>
+    </div>
+    <div class="power-card">
+      <div class="power-name">Arrest without Warrant</div>
+      <div class="power-leg">Section 24 – Police and Criminal Evidence Act (PACE) 1984</div>
+    </div>
+    <div class="power-card">
+      <div class="power-name">Arrest without Warrant (Other Persons)</div>
+      <div class="power-leg">Section 24A – Police and Criminal Evidence Act (PACE) 1984</div>
+    </div>
+  </div>
+</div>
+
+<!-- USE OF FORCE -->
+<div class="page" id="page-pow-force">
+  <div class="content-page">
+    <div class="power-card" style="border-left-color: #e67e22;">
+      <div class="power-name">Criteria to Arm</div>
+      <div class="power-leg na">—</div>
+    </div>
+    <div class="power-card" style="border-left-color: #e67e22;">
+      <div class="power-name">Use of Force</div>
+      <div class="power-leg">Common Law</div>
+    </div>
+    <div class="power-card" style="border-left-color: #e67e22;">
+      <div class="power-name">Use of Force</div>
+      <div class="power-leg">Section 117 – Police and Criminal Evidence Act (PACE) 1984</div>
+    </div>
+    <div class="power-card" style="border-left-color: #e67e22;">
+      <div class="power-name">Use of Force</div>
+      <div class="power-leg">Section 3(1) – Criminal Law Act 1967</div>
+    </div>
+  </div>
+</div>
+
+<!-- SEARCH POWERS -->
+<div class="page" id="page-pow-search">
+  <div class="content-page">
+    <div class="power-card" style="border-left-color: var(--accent);">
+      <div class="power-name">Power of Constables to Stop and Search</div>
+      <div class="power-leg">Section 47 – Firearms Act 1968</div>
+    </div>
+    <div class="power-card" style="border-left-color: var(--accent);">
+      <div class="power-name">Power to Search at a Police Station</div>
+      <div class="power-leg">Section 54 – Police and Criminal Evidence Act (PACE) 1984</div>
+    </div>
+    <div class="power-card" style="border-left-color: var(--accent);">
+      <div class="power-name">Power to Search for Drugs</div>
+      <div class="power-leg">Section 23(2) – Misuse of Drugs Act 1971</div>
+    </div>
+    <div class="power-card" style="border-left-color: var(--accent);">
+      <div class="power-name">Power to Search Premises with Warrant</div>
+      <div class="power-leg">Section 8 – Police and Criminal Evidence Act (PACE) 1984</div>
+    </div>
+    <div class="power-card" style="border-left-color: var(--accent);">
+      <div class="power-name">Power to Search with Warrant</div>
+      <div class="power-leg">Section 46 – Firearms Act 1968</div>
+    </div>
+    <div class="power-card" style="border-left-color: var(--accent);">
+      <div class="power-name">Search on Arrest</div>
+      <div class="power-leg">Section 32 – Police and Criminal Evidence Act (PACE) 1984</div>
+    </div>
+    <div class="power-card" style="border-left-color: var(--accent);">
+      <div class="power-name">Stop and Search</div>
+      <div class="power-leg">Section 1(2) – Police and Criminal Evidence Act (PACE) 1984</div>
+    </div>
+    <div class="power-card" style="border-left-color: var(--accent);">
+      <div class="power-name">Stop and Search in Anticipation of Violence</div>
+      <div class="power-leg">Section 60 – Criminal Justice and Public Order Act 1994</div>
+    </div>
+  </div>
+</div>
+
+<!-- POWERS OF ENTRY -->
+<div class="page" id="page-pow-entry">
+  <div class="content-page">
+    <div class="power-card" style="border-left-color: var(--blue);">
+      <div class="power-name">Entry and Search after Arrest</div>
+      <div class="power-leg">Section 18 – Police and Criminal Evidence Act (PACE) 1984</div>
+    </div>
+    <div class="power-card" style="border-left-color: var(--blue);">
+      <div class="power-name">Power to Enter – Arrest / Save Life / etc</div>
+      <div class="power-leg">Section 17 – Police and Criminal Evidence Act (PACE) 1984</div>
+    </div>
+  </div>
+</div>
+
+<!-- PUBLIC ORDER / ASB -->
+<div class="page" id="page-pow-public">
+  <div class="content-page">
+    <div class="power-card" style="border-left-color: var(--purple);">
+      <div class="power-name">Authorisations to use Dispersal Powers Under Section 35</div>
+      <div class="power-leg">Section 34 – Anti-Social Behaviour, Crime and Policing Act 2014</div>
+    </div>
+    <div class="power-card" style="border-left-color: var(--purple);">
+      <div class="power-name">Persons Engaging in Anti-Social Behaviour</div>
+      <div class="power-leg">Section 50 – Police Reform Act 2002</div>
+    </div>
+    <div class="power-card" style="border-left-color: var(--purple);">
+      <div class="power-name">Powers to Require Removal of Disguises</div>
+      <div class="power-leg">Section 60AA – Criminal Justice and Public Order Act 1994</div>
+    </div>
+  </div>
+</div>
+
+<!-- ROAD POLICING POWERS -->
+<div class="page" id="page-pow-road">
+  <div class="content-page">
+    <div class="power-card" style="border-left-color: var(--green);">
+      <div class="power-name">Power to Demand Production of a Driving Licence</div>
+      <div class="power-leg">Section 164 – Road Traffic Act 1988</div>
+    </div>
+    <div class="power-card" style="border-left-color: var(--green);">
+      <div class="power-name">Power to Seize a Vehicle for No Driving Licence / Insurance</div>
+      <div class="power-leg">Section 165A – Road Traffic Act 1988</div>
+    </div>
+    <div class="power-card" style="border-left-color: var(--green);">
+      <div class="power-name">Power to Stop Vehicles</div>
+      <div class="power-leg">Section 163 – Road Traffic Act 1988</div>
+    </div>
+    <div class="power-card" style="border-left-color: var(--green);">
+      <div class="power-name">Vehicles Used in Manner Causing Alarm, Distress or Annoyance</div>
+      <div class="power-leg">Section 59 – Police Reform Act 2002</div>
+    </div>
+  </div>
+</div>
+
+<!-- MHA POWERS -->
+<div class="page" id="page-pow-mha">
+  <div class="content-page">
+    <div class="power-card" style="border-left-color: var(--teal);">
+      <div class="power-name">Removal of Mentally Disordered Persons Without a Warrant</div>
+      <div class="power-leg">Section 136 – Mental Health Act 1983</div>
+    </div>
+  </div>
+</div>
+
+<!-- SEIZURE POWERS -->
+<div class="page" id="page-pow-seizure">
+  <div class="content-page">
+    <div class="power-card" style="border-left-color: var(--accent2);">
+      <div class="power-name">General Power of Seizure</div>
+      <div class="power-leg">Section 19 – Police and Criminal Evidence Act (PACE) 1984</div>
+    </div>
+    <div class="power-card" style="border-left-color: var(--accent2);">
+      <div class="power-name">Seize Vehicles Driven Without Licence or Insurance</div>
+      <div class="power-leg">Section 165A – Road Traffic Act 1988</div>
+    </div>
+  </div>
+</div>
+
 <!-- TOR CODES -->
 <div class="page" id="page-tor">
   <div class="page-subheader">
     <div class="search-wrap">
-      <input type="search" id="search" placeholder="Search code or keyword…" autocomplete="off" autocorrect="off" spellcheck="false">
-      <button class="clear-btn" id="clearBtn" onclick="clearSearch()">✕</button>
+      <input type="search" id="tor-search" placeholder="Search code or keyword…" autocomplete="off" autocorrect="off" spellcheck="false">
+      <button class="clear-btn" id="tor-clear" onclick="clearTor()">✕</button>
     </div>
   </div>
-  <div class="results-info">Showing <span id="count">0</span> offences</div>
-  <div class="results" id="results"></div>
+  <div class="results-info">Showing <span id="tor-count">0</span> offences</div>
+  <div class="results" id="tor-results"></div>
 </div>
 
 <!-- ABBREVIATIONS -->
@@ -529,23 +674,27 @@
   </div>
 </div>
 
-<!-- USEFUL INFORMATION (subcategory list) -->
+<!-- USEFUL INFORMATION -->
 <div class="page" id="page-useful">
   <div class="subcat-list">
-    <div class="subcat-card" onclick="showPage('ic-codes', 'Identity Codes', 'useful')">
-      <div class="icon" style="font-size:24px">🪪</div>
-      <div class="s-text">
-        <div class="s-title">Identity Codes</div>
-        <div class="s-desc">Used to identify suspects based on race.</div>
-      </div>
+    <div class="subcat-card" onclick="nav('ic-codes','Identity Codes','useful')">
+      <div class="icon" style="font-size:22px">🪪</div>
+      <div class="s-text"><div class="s-title">Identity Codes</div><div class="s-desc">IC classification by appearance</div></div>
       <div class="arrow">›</div>
     </div>
-    <div class="subcat-card" onclick="showPage('call-grades', 'Call Grades', 'useful')">
-      <div class="icon" style="font-size:24px">📡</div>
-      <div class="s-text">
-        <div class="s-title">Call Grades</div>
-        <div class="s-desc">Call grades are used to identify the call urgency, and response time.</div>
-      </div>
+    <div class="subcat-card c-green" onclick="nav('call-grades','Call Grades','useful')">
+      <div class="icon" style="font-size:22px">📡</div>
+      <div class="s-text"><div class="s-title">Call Grades</div><div class="s-desc">Response urgency & time targets</div></div>
+      <div class="arrow">›</div>
+    </div>
+    <div class="subcat-card c-accent" onclick="nav('pnc','PNC Force Codes','useful')">
+      <div class="icon" style="font-size:22px">🖥️</div>
+      <div class="s-text"><div class="s-title">PNC Force Codes</div><div class="s-desc">Searchable police & agency codes</div></div>
+      <div class="arrow">›</div>
+    </div>
+    <div class="subcat-card c-red" onclick="nav('methane','M/ETHANE','useful')">
+      <div class="icon" style="font-size:22px">🚨</div>
+      <div class="s-text"><div class="s-title">M/ETHANE</div><div class="s-desc">Major incident declaration framework</div></div>
       <div class="arrow">›</div>
     </div>
   </div>
@@ -555,48 +704,13 @@
 <div class="page" id="page-ic-codes">
   <div class="content-page">
     <div class="section-intro">Used to identify suspects based on appearance/ethnicity.</div>
-
-    <div class="ic-card">
-      <div class="ic-code">IC1</div>
-      <div class="ic-label">White-skinned European</div>
-      <div class="ic-examples">English, Scottish, Welsh, French, German, Swedish, Norwegian, Polish, Russian</div>
-    </div>
-
-    <div class="ic-card">
-      <div class="ic-code">IC2</div>
-      <div class="ic-label">Dark-skinned European</div>
-      <div class="ic-examples">Greek, Cypriot, Turkish, Sicilian, Sardinian, Spanish, Italian</div>
-    </div>
-
-    <div class="ic-card">
-      <div class="ic-code">IC3</div>
-      <div class="ic-label">African-Caribbean</div>
-      <div class="ic-examples">West Indian, Guyanese, Black African (including those with light complexion)</div>
-    </div>
-
-    <div class="ic-card">
-      <div class="ic-code">IC4</div>
-      <div class="ic-label">South Asian</div>
-      <div class="ic-examples">Indian, Pakistani, Bangladeshi or Sri Lankan</div>
-    </div>
-
-    <div class="ic-card">
-      <div class="ic-code">IC5</div>
-      <div class="ic-label">South/East Asian</div>
-      <div class="ic-examples">Malaysian, Burmese, Filipino, Mongolian</div>
-    </div>
-
-    <div class="ic-card">
-      <div class="ic-code">IC6</div>
-      <div class="ic-label">Arabian/North African</div>
-      <div class="ic-examples">Algerian, Tunisian, Moroccan and North African</div>
-    </div>
-
-    <div class="ic-card">
-      <div class="ic-code">IC0 / IC7 / IC9</div>
-      <div class="ic-label">Unknown</div>
-      <div class="ic-examples">Origin/appearance not determined</div>
-    </div>
+    <div class="ic-card"><div class="ic-code">IC1</div><div class="ic-label">White-skinned European</div><div class="ic-examples">English, Scottish, Welsh, French, German, Swedish, Norwegian, Polish, Russian</div></div>
+    <div class="ic-card"><div class="ic-code">IC2</div><div class="ic-label">Dark-skinned European</div><div class="ic-examples">Greek, Cypriot, Turkish, Sicilian, Sardinian, Spanish, Italian</div></div>
+    <div class="ic-card"><div class="ic-code">IC3</div><div class="ic-label">African-Caribbean</div><div class="ic-examples">West Indian, Guyanese, Black African (including those with light complexion)</div></div>
+    <div class="ic-card"><div class="ic-code">IC4</div><div class="ic-label">South Asian</div><div class="ic-examples">Indian, Pakistani, Bangladeshi or Sri Lankan</div></div>
+    <div class="ic-card"><div class="ic-code">IC5</div><div class="ic-label">South/East Asian</div><div class="ic-examples">Malaysian, Burmese, Filipino, Mongolian</div></div>
+    <div class="ic-card"><div class="ic-code">IC6</div><div class="ic-label">Arabian/North African</div><div class="ic-examples">Algerian, Tunisian, Moroccan and North African</div></div>
+    <div class="ic-card"><div class="ic-code">IC0 / IC7 / IC9</div><div class="ic-label">Unknown</div><div class="ic-examples">Origin/appearance not determined</div></div>
   </div>
 </div>
 
@@ -604,52 +718,72 @@
 <div class="page" id="page-call-grades">
   <div class="content-page">
     <div class="section-intro">Call grades identify the urgency of a call and the expected response time.</div>
-
     <div class="grade-card">
-      <div class="grade-header">
-        <div class="grade-letter">I</div>
-        <div class="grade-name">Immediate</div>
-      </div>
+      <div class="grade-header"><div class="grade-letter">I</div><div class="grade-name">Immediate</div></div>
       <div class="grade-body">The immediate presence of a police officer will have a significant impact on the outcome. Typically where there is, or is likely to be, a danger to life, serious threat of violence, serious damage to property or serious injury.</div>
-      <div class="grade-meta">
-        <div class="grade-pill">⏱ 15 MINUTES</div>
-        <div class="grade-pill">🚨 SIRENS & ELS</div>
-      </div>
+      <div class="grade-meta"><div class="grade-pill">⏱ 15 MINUTES</div><div class="grade-pill">🚨 SIRENS & ELS</div></div>
     </div>
-
     <div class="grade-card sig">
-      <div class="grade-header">
-        <div class="grade-letter">S</div>
-        <div class="grade-name">Significant</div>
-      </div>
+      <div class="grade-header"><div class="grade-letter">S</div><div class="grade-name">Significant</div></div>
       <div class="grade-body">There is a degree of importance or urgency associated with the initial police action, but an emergency response is not required.</div>
-      <div class="grade-meta">
-        <div class="grade-pill">⏱ 60 MINUTES</div>
-        <div class="grade-pill">🔵 ELS ONLY</div>
-      </div>
+      <div class="grade-meta"><div class="grade-pill">⏱ 60 MINUTES</div><div class="grade-pill">🔵 ELS ONLY</div></div>
     </div>
-
     <div class="grade-card ext">
-      <div class="grade-header">
-        <div class="grade-letter">E</div>
-        <div class="grade-name">Extended</div>
-      </div>
+      <div class="grade-header"><div class="grade-letter">E</div><div class="grade-name">Extended</div></div>
       <div class="grade-body">Police attendance is required, but an emergency response is not. No lights or sirens needed.</div>
-      <div class="grade-meta">
-        <div class="grade-pill">⏱ 48 HOURS</div>
-        <div class="grade-pill">🟢 NO ELS OR SIRENS</div>
-      </div>
+      <div class="grade-meta"><div class="grade-pill">⏱ 48 HOURS</div><div class="grade-pill">🟢 NO ELS OR SIRENS</div></div>
     </div>
-
     <div class="grade-card ref">
-      <div class="grade-header">
-        <div class="grade-letter">R</div>
-        <div class="grade-name">Referred</div>
-      </div>
+      <div class="grade-header"><div class="grade-letter">R</div><div class="grade-name">Referred</div></div>
       <div class="grade-body">Police attendance is not required. The caller has been dealt with appropriately by the call handler.</div>
-      <div class="grade-meta">
-        <div class="grade-pill">⛔ NO RESPONSE NEEDED</div>
-      </div>
+      <div class="grade-meta"><div class="grade-pill">⛔ NO RESPONSE NEEDED</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- PNC FORCE CODES -->
+<div class="page" id="page-pnc">
+  <div class="page-subheader">
+    <div class="search-wrap">
+      <input type="search" id="pnc-search" placeholder="Search code, force or abbreviation…" autocomplete="off" autocorrect="off" spellcheck="false">
+      <button class="clear-btn" id="pnc-clear" onclick="clearPnc()">✕</button>
+    </div>
+  </div>
+  <div class="results-info">Showing <span id="pnc-count">0</span> forces</div>
+  <div id="pnc-results" style="padding: 12px 14px;"></div>
+</div>
+
+<!-- METHANE -->
+<div class="page" id="page-methane">
+  <div class="content-page">
+    <div class="section-intro">Used when declaring a Major Incident. Each letter represents a key element of the declaration.</div>
+    <div class="methane-card">
+      <div class="methane-header"><div class="methane-letter">M</div><div class="methane-title">Major Incident</div></div>
+      <div class="methane-sub">Declared? Include date/time</div>
+    </div>
+    <div class="methane-card">
+      <div class="methane-header"><div class="methane-letter">E</div><div class="methane-title">Exact Location</div></div>
+      <div class="methane-sub">Precise location or area</div>
+    </div>
+    <div class="methane-card">
+      <div class="methane-header"><div class="methane-letter">T</div><div class="methane-title">Type of Incident</div></div>
+      <div class="methane-sub">Nature of incident</div>
+    </div>
+    <div class="methane-card">
+      <div class="methane-header"><div class="methane-letter">H</div><div class="methane-title">Hazards</div></div>
+      <div class="methane-sub">Actual & potential risks</div>
+    </div>
+    <div class="methane-card">
+      <div class="methane-header"><div class="methane-letter">A</div><div class="methane-title">Access</div></div>
+      <div class="methane-sub">Routes in/out + RV points</div>
+    </div>
+    <div class="methane-card">
+      <div class="methane-header"><div class="methane-letter">N</div><div class="methane-title">Casualties</div></div>
+      <div class="methane-sub">Number & severity</div>
+    </div>
+    <div class="methane-card">
+      <div class="methane-header"><div class="methane-letter">E</div><div class="methane-title">Emergency Services</div></div>
+      <div class="methane-sub">Resources required / on scene</div>
     </div>
   </div>
 </div>
@@ -665,44 +799,62 @@
 </div>
 
 <script>
-// Navigation stack
+// ── NAVIGATION ──
 let navStack = [];
 
-function showPage(id, title, parentId) {
+const pageTitles = {
+  home: "Olpy's Policing Hub",
+  powers: 'Policing Powers',
+  'pow-arrest': 'Powers of Arrest',
+  'pow-force': 'Use of Force Powers',
+  'pow-search': 'Search Powers',
+  'pow-entry': 'Powers of Entry',
+  'pow-public': 'Public Order / ASB Powers',
+  'pow-road': 'Road Policing Powers',
+  'pow-mha': 'Mental Health Act Powers',
+  'pow-seizure': 'Seizure Powers',
+  tor: 'TOR Codes',
+  abbreviations: 'Abbreviations',
+  plates: 'Number Plates',
+  useful: 'Useful Information',
+  'ic-codes': 'Identity Codes',
+  'call-grades': 'Call Grades',
+  pnc: 'PNC Force Codes',
+  methane: 'M/ETHANE',
+  firstaid: 'First Aid'
+};
+
+function nav(id, title, parentId) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.getElementById('page-' + id).classList.add('active');
-  document.getElementById('headerTitle').textContent = title;
+  document.getElementById('headerTitle').textContent = title || pageTitles[id] || id;
   document.getElementById('menuBtn').style.display = id === 'home' ? 'none' : 'block';
-  window.scrollTo(0, 0);
   if (parentId) navStack.push(parentId);
-  if (id === 'tor') render('');
+  window.scrollTo(0, 0);
+  if (id === 'tor') { renderTor(''); }
+  if (id === 'pnc') { renderPnc(''); }
 }
 
 function navBack() {
   const prev = navStack.pop();
-  if (!prev) return goHome();
-  const titles = {
-    home: "Olpy's Policing Hub",
-    useful: 'Useful Information',
-    tor: 'TOR Codes',
-    abbreviations: 'Abbreviations',
-    plates: 'Number Plates',
-    firstaid: 'First Aid'
-  };
+  if (!prev || prev === 'home') {
+    navStack = [];
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById('page-home').classList.add('active');
+    document.getElementById('headerTitle').textContent = "Olpy's Policing Hub";
+    document.getElementById('menuBtn').style.display = 'none';
+    window.scrollTo(0, 0);
+    return;
+  }
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.getElementById('page-' + prev).classList.add('active');
-  document.getElementById('headerTitle').textContent = titles[prev] || "Olpy's Policing Hub";
-  document.getElementById('menuBtn').style.display = prev === 'home' ? 'none' : 'block';
+  document.getElementById('headerTitle').textContent = pageTitles[prev] || prev;
+  document.getElementById('menuBtn').style.display = 'block';
   window.scrollTo(0, 0);
 }
 
-function goHome() {
-  navStack = [];
-  showPage('home', "Olpy's Policing Hub", null);
-}
-
-// TOR DATA
-const raw = `RT88096 - Use motor vehicle on road without valid test certificate (MOT) - £100 non-endorsable
+// ── TOR DATA ──
+const torRaw = `RT88096 - Use motor vehicle on road without valid test certificate (MOT) - £100 non-endorsable
 RT88191 - Use motor vehicle on road/public place with no insurance - 6 points endorsable £200+ FPN
 RT88320 - Permit another to drive without insurance - 6 points endorsable
 RT88332 - Obtain licence whilst disqualified - Court summons
@@ -768,7 +920,7 @@ ME82001 - Drive in wrong direction on motorway - 3 points endorsable
 ME82002 - Drive on hard shoulder of motorway - 3 points endorsable
 TS16001 - Motor vehicle fail to accord precedence to pedestrian at Zebra crossing - 3 points endorsable`;
 
-const offences = raw.trim().split('\n').map(line => {
+const torOffences = torRaw.trim().split('\n').map(line => {
   const parts = line.split(' - ');
   const code = parts[0].trim();
   const desc = parts[1] ? parts[1].trim() : '';
@@ -780,37 +932,35 @@ const offences = raw.trim().split('\n').map(line => {
   return { code, desc, penalty, type, raw: line.toLowerCase() };
 });
 
-function highlight(text, query) {
-  if (!query) return text;
-  const escaped = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  return text.replace(new RegExp(`(${escaped})`, 'gi'), '<mark>$1</mark>');
+function hl(text, q) {
+  if (!q) return text;
+  const e = q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  return text.replace(new RegExp(`(${e})`, 'gi'), '<mark>$1</mark>');
 }
 
-function tagLabel(type) {
+function torTagLabel(type) {
   if (type === 'court') return 'COURT';
   if (type === 'endorsable') return 'ENDORSABLE';
   return 'NON-ENDORS.';
 }
 
-function render(query) {
+function renderTor(query) {
   const q = query.trim().toLowerCase();
-  const filtered = q ? offences.filter(o => o.raw.includes(q)) : offences;
-  document.getElementById('count').textContent = filtered.length;
-  const container = document.getElementById('results');
-
+  const filtered = q ? torOffences.filter(o => o.raw.includes(q)) : torOffences;
+  document.getElementById('tor-count').textContent = filtered.length;
+  const container = document.getElementById('tor-results');
   if (filtered.length === 0) {
-    container.innerHTML = `<div class="no-results"><div class="icon">🔍</div>No offences found for "${query}"</div>`;
+    container.innerHTML = `<div class="no-results"><div class="ni">🔍</div>No offences found for "${query}"</div>`;
     return;
   }
-
   container.innerHTML = filtered.map(o => `
-    <div class="tor-card ${o.type}" onclick="toggle(this)">
+    <div class="tor-card ${o.type}" onclick="toggleTor(this)">
       <div class="tor-card-header">
-        <div class="code">${highlight(o.code, query)}</div>
-        <div class="tag ${o.type}">${tagLabel(o.type)}</div>
+        <div class="code">${hl(o.code, query)}</div>
+        <div class="tag ${o.type}">${torTagLabel(o.type)}</div>
       </div>
-      <div class="desc">${highlight(o.desc, query)}</div>
-      <div class="penalty">${highlight(o.penalty, query)}</div>
+      <div class="desc">${hl(o.desc, query)}</div>
+      <div class="penalty">${hl(o.penalty, query)}</div>
       <div class="tor-card-detail">
         <div class="detail-row"><div class="detail-label">Code</div><div class="detail-val">${o.code}</div></div>
         <div class="detail-row"><div class="detail-label">Offence</div><div class="detail-val">${o.desc}</div></div>
@@ -821,24 +971,155 @@ function render(query) {
   `).join('');
 }
 
-function toggle(card) {
+function toggleTor(card) {
   const isOpen = card.classList.contains('open');
   document.querySelectorAll('.tor-card.open').forEach(c => c.classList.remove('open'));
   if (!isOpen) card.classList.add('open');
 }
 
-function clearSearch() {
-  document.getElementById('search').value = '';
-  document.getElementById('clearBtn').style.display = 'none';
-  render('');
+function clearTor() {
+  document.getElementById('tor-search').value = '';
+  document.getElementById('tor-clear').style.display = 'none';
+  renderTor('');
 }
 
-document.getElementById('search').addEventListener('input', function() {
-  document.getElementById('clearBtn').style.display = this.value ? 'block' : 'none';
-  render(this.value);
+document.getElementById('tor-search').addEventListener('input', function() {
+  document.getElementById('tor-clear').style.display = this.value ? 'block' : 'none';
+  renderTor(this.value);
 });
 
-showPage('home', "Olpy's Policing Hub", null);
+// ── PNC FORCE CODES ──
+const pncData = [
+  // POLICE
+  { code:'01', name:'Metropolitan Police', abbr:'MPS', section:'POLICE' },
+  { code:'02', name:'Metropolitan Police', abbr:'MPS', section:'POLICE' },
+  { code:'03', name:'Cumbria Constabulary', abbr:'', section:'POLICE' },
+  { code:'04', name:'Lancashire Constabulary', abbr:'', section:'POLICE' },
+  { code:'05', name:'Merseyside Police', abbr:'', section:'POLICE' },
+  { code:'06', name:'Greater Manchester Police', abbr:'', section:'POLICE' },
+  { code:'07', name:'Cheshire Constabulary', abbr:'', section:'POLICE' },
+  { code:'10', name:'Northumbria Police', abbr:'', section:'POLICE' },
+  { code:'11', name:'Durham Constabulary', abbr:'', section:'POLICE' },
+  { code:'12', name:'North Yorkshire Police', abbr:'', section:'POLICE' },
+  { code:'13', name:'West Yorkshire Police', abbr:'', section:'POLICE' },
+  { code:'14', name:'South Yorkshire Police', abbr:'SYP', section:'POLICE' },
+  { code:'15', name:'Royal Military Police and RAF Police', abbr:'RMP / RAFP', section:'POLICE' },
+  { code:'16', name:'Humberside Police', abbr:'', section:'POLICE' },
+  { code:'17', name:'Cleveland Police', abbr:'', section:'POLICE' },
+  { code:'20', name:'West Midlands Police', abbr:'WMP', section:'POLICE' },
+  { code:'21', name:'Staffordshire Police', abbr:'', section:'POLICE' },
+  { code:'22', name:'West Mercia Police', abbr:'', section:'POLICE' },
+  { code:'23', name:'Warwickshire Police', abbr:'', section:'POLICE' },
+  { code:'24', name:'Ministry of Defence Police', abbr:'MODP', section:'POLICE' },
+  { code:'30', name:'Derbyshire Constabulary', abbr:'', section:'POLICE' },
+  { code:'31', name:'Nottinghamshire Police', abbr:'', section:'POLICE' },
+  { code:'32', name:'Lincolnshire Police', abbr:'', section:'POLICE' },
+  { code:'33', name:'Leicestershire Constabulary', abbr:'', section:'POLICE' },
+  { code:'34', name:'Northamptonshire Police', abbr:'', section:'POLICE' },
+  { code:'35', name:'Cambridgeshire Constabulary', abbr:'', section:'POLICE' },
+  { code:'36', name:'Norfolk Constabulary', abbr:'', section:'POLICE' },
+  { code:'37', name:'Suffolk Constabulary', abbr:'', section:'POLICE' },
+  { code:'40', name:'Bedfordshire Police', abbr:'', section:'POLICE' },
+  { code:'41', name:'Hertfordshire Constabulary', abbr:'', section:'POLICE' },
+  { code:'42', name:'Essex Police', abbr:'', section:'POLICE' },
+  { code:'43', name:'Thames Valley Police', abbr:'', section:'POLICE' },
+  { code:'44', name:'Hampshire and Isle of Wight Constabulary', abbr:'', section:'POLICE' },
+  { code:'45', name:'Surrey Police', abbr:'', section:'POLICE' },
+  { code:'46', name:'Kent Police', abbr:'', section:'POLICE' },
+  { code:'47', name:'Sussex Police', abbr:'', section:'POLICE' },
+  { code:'48', name:'City of London Police', abbr:'COLP', section:'POLICE' },
+  { code:'49', name:'Kent Ports Police', abbr:'', section:'POLICE' },
+  { code:'50', name:'Devon & Cornwall Police', abbr:'', section:'POLICE' },
+  { code:'52', name:'Avon & Somerset Constabulary', abbr:'', section:'POLICE' },
+  { code:'53', name:'Gloucestershire Constabulary', abbr:'', section:'POLICE' },
+  { code:'54', name:'Wiltshire Police', abbr:'', section:'POLICE' },
+  { code:'55', name:'Dorset Police', abbr:'', section:'POLICE' },
+  { code:'56', name:'Guernsey Police', abbr:'', section:'POLICE' },
+  { code:'57', name:'States of Jersey Police', abbr:'', section:'POLICE' },
+  { code:'58', name:'Port of Dover Police', abbr:'', section:'POLICE' },
+  { code:'59', name:'Civil Nuclear Constabulary', abbr:'CNC', section:'POLICE' },
+  { code:'60', name:'North Wales Police', abbr:'', section:'POLICE' },
+  { code:'61', name:'Gwent Police', abbr:'', section:'POLICE' },
+  { code:'62', name:'South Wales Police', abbr:'', section:'POLICE' },
+  { code:'63', name:'Dyfed-Powys Police', abbr:'', section:'POLICE' },
+  { code:'70', name:'Police Scotland (formerly Dumfries & Galloway Police)', abbr:'', section:'POLICE' },
+  { code:'74', name:'Police Scotland (formerly Strathclyde Police)', abbr:'', section:'POLICE' },
+  { code:'76', name:'Police Scotland (formerly Lothian & Borders Police)', abbr:'', section:'POLICE' },
+  { code:'78', name:'Police Scotland (formerly Fife Constabulary)', abbr:'', section:'POLICE' },
+  { code:'80', name:'Police Scotland (formerly Tayside Police)', abbr:'', section:'POLICE' },
+  { code:'82', name:'Police Scotland (formerly Grampian Police)', abbr:'', section:'POLICE' },
+  { code:'84', name:'Police Scotland (formerly Central Scotland Police)', abbr:'', section:'POLICE' },
+  { code:'87', name:'Police Scotland (formerly Northern Constabulary)', abbr:'', section:'POLICE' },
+  { code:'90', name:'Police Scotland (formerly Scottish Crime and Drug Enforcement Agency)', abbr:'', section:'POLICE' },
+  { code:'93', name:'British Transport Police', abbr:'BTP', section:'POLICE' },
+  { code:'96', name:'Police Scotland (formerly SPSA)', abbr:'', section:'POLICE' },
+  { code:'97', name:'Isle of Man Constabulary', abbr:'', section:'POLICE' },
+  { code:'98', name:'Police Service of Northern Ireland', abbr:'PSNI', section:'POLICE' },
+  // OTHER GOVERNMENT AGENCIES
+  { code:'67', name:'National Crime Agency', abbr:'NCA', section:'OTHER GOVERNMENT AGENCIES' },
+  { code:'69', name:'Home Office Immigration Enforcement', abbr:'', section:'OTHER GOVERNMENT AGENCIES' },
+  { code:'77', name:'Department for Work and Pensions', abbr:'DWP', section:'OTHER GOVERNMENT AGENCIES' },
+  { code:'81', name:'Ministry of Defence (United Kingdom) Security', abbr:'', section:'OTHER GOVERNMENT AGENCIES' },
+  { code:'85', name:"His Majesty's Revenue and Customs", abbr:'HMRC', section:'OTHER GOVERNMENT AGENCIES' },
+  { code:'86', name:"His Majesty's Prison Service", abbr:'HMPS', section:'OTHER GOVERNMENT AGENCIES' },
+  { code:'88', name:"His Majesty's Revenue and Customs", abbr:'HMRC', section:'OTHER GOVERNMENT AGENCIES' },
+  { code:'91', name:'National Crime Agency', abbr:'NCA', section:'OTHER GOVERNMENT AGENCIES' },
+  { code:'94', name:'Driver and Vehicle Licensing Agency', abbr:'DVLA', section:'OTHER GOVERNMENT AGENCIES' },
+];
+
+function renderPnc(query) {
+  const q = query.trim().toLowerCase();
+  const filtered = q ? pncData.filter(f =>
+    f.code.includes(q) ||
+    f.name.toLowerCase().includes(q) ||
+    f.abbr.toLowerCase().includes(q)
+  ) : pncData;
+
+  document.getElementById('pnc-count').textContent = filtered.length;
+  const container = document.getElementById('pnc-results');
+
+  if (filtered.length === 0) {
+    container.innerHTML = `<div class="no-results"><div class="ni">🔍</div>No forces found for "${query}"</div>`;
+    return;
+  }
+
+  // Group by section
+  const sections = {};
+  filtered.forEach(f => {
+    if (!sections[f.section]) sections[f.section] = [];
+    sections[f.section].push(f);
+  });
+
+  let html = '';
+  Object.entries(sections).forEach(([section, forces]) => {
+    html += `<div class="pnc-section-header">${section}</div>`;
+    forces.forEach(f => {
+      html += `<div class="pnc-row">
+        <div class="pnc-code">${hl(f.code, query)}</div>
+        <div>
+          <div class="pnc-name">${hl(f.name, query)}</div>
+          ${f.abbr ? `<div class="pnc-abbr">${hl(f.abbr, query)}</div>` : ''}
+        </div>
+      </div>`;
+    });
+  });
+
+  container.innerHTML = html;
+}
+
+function clearPnc() {
+  document.getElementById('pnc-search').value = '';
+  document.getElementById('pnc-clear').style.display = 'none';
+  renderPnc('');
+}
+
+document.getElementById('pnc-search').addEventListener('input', function() {
+  document.getElementById('pnc-clear').style.display = this.value ? 'block' : 'none';
+  renderPnc(this.value);
+});
+
+// Init
+nav('home', "Olpy's Policing Hub", null);
 </script>
 </body>
 </html>
