@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>TOR Code Lookup</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Syne:wght@400;700;800&display=swap');
+
+  :root {
+    --bg: #0d0f14;
+    --surface: #161920;
+    --border: #252830;
+    --accent: #f5a623;
+    --accent2: #e05c5c;
+    --green: #4caf82;
+    --text: #e8eaf0;
+    --muted: #6b7080;
+    --card: #1c1f28;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Syne', sans-serif;
+    min-height: 100vh;
+    padding: 0 0 60px 0;
+  }
+
+  header {
+    background: var(--surface);
+    border-bottom: 2px solid var(--accent);
+    padding: 18px 20px 14px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .header-top {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+
+  .badge {
+    background: var(--accent);
+    color: #000;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 3px 7px;
+    letter-spacing: 1px;
+  }
+
+  h1 {
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    color: var(--text);
+  }
+
+  .search-wrap {
+    position: relative;
+  }
+
+  input {
+    width: 100%;
+    background: var(--bg);
+    border: 1.5px solid var(--border);
+    color: var(--text);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 15px;
+    padding: 12px 42px 12px 14px;
+    outline: none;
+    transition: border-color 0.2s;
+    -webkit-appearance: none;
+    border-radius: 0;
+  }
+
+  input:focus { border-color: var(--accent); }
+  input::placeholder { color: var(--muted); }
+
+  .clear-btn {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: var(--muted);
+    font-size: 18px;
+    cursor: pointer;
+    display: none;
+    padding: 4px;
+    line-height: 1;
+  }
+
+  .results-info {
+    padding: 10px 20px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .results-info span { color: var(--accent); }
+
+  .results {
+    padding: 12px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--border);
+    padding: 14px;
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .card.endorsable { border-left-color: var(--accent2); }
+  .card.non-endorsable { border-left-color: var(--green); }
+  .card.court { border-left-color: #9b59b6; }
+  .card:active { background: #22252f; }
+
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+
+  .code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 1px;
+    flex-shrink: 0;
+  }
+
+  .tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    font-weight: 600;
+    padding: 3px 7px;
+    letter-spacing: 0.5px;
+    flex-shrink: 0;
+  }
+
+  .tag.endorsable { background: rgba(224,92,92,0.15); color: var(--accent2); border: 1px solid var(--accent2); }
+  .tag.non-endorsable { background: rgba(76,175,130,0.15); color: var(--green); border: 1px solid var(--green); }
+  .tag.court { background: rgba(155,89,182,0.15); color: #b07edc; border: 1px solid #9b59b6; }
+
+  .desc {
+    font-size: 13px;
+    line-height: 1.5;
+    color: #c5c8d4;
+    margin-bottom: 8px;
+  }
+
+  .penalty {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  .card-detail {
+    display: none;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid var(--border);
+  }
+
+  .card.open .card-detail { display: block; }
+
+  .detail-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 6px;
+    font-size: 12px;
+  }
+
+  .detail-label {
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--muted);
+    min-width: 80px;
+    flex-shrink: 0;
+  }
+
+  .detail-val { color: var(--text); line-height: 1.5; }
+
+  .no-results {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--muted);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+  }
+
+  .no-results .icon { font-size: 36px; margin-bottom: 12px; }
+
+  mark {
+    background: rgba(245,166,35,0.25);
+    color: var(--accent);
+    border-radius: 2px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-top">
+    <div class="badge">POLICE</div>
+    <h1>TOR Code Lookup</h1>
+  </div>
+  <div class="search-wrap">
+    <input type="search" id="search" placeholder="Search code or keyword…" autocomplete="off" autocorrect="off" spellcheck="false">
+    <button class="clear-btn" id="clearBtn" onclick="clearSearch()">✕</button>
+  </div>
+</header>
+
+<div class="results-info" id="info">Showing <span id="count">71</span> offences</div>
+<div class="results" id="results"></div>
+
+<script>
+const raw = `RT88096 - Use motor vehicle on road without valid test certificate (MOT) - £100 non-endorsable
+RT88191 - Use motor vehicle on road/public place with no insurance - 6 points endorsable £200+ FPN
+RT88320 - Permit another to drive without insurance - 6 points endorsable
+RT88332 - Obtain licence whilst disqualified - Court summons
+RT88333 - Drive whilst disqualified - Court summons (6+ points endorsable)
+RT88334 - Drive otherwise than in accordance with licence (endorsable variant) - 3-6 points £100 FPN
+RT88469 - Drive vehicle on footpath/bridleway (s.34 RTA) - 3 points endorsable
+RT88497 - False statement to obtain licence - Court summons
+RT88498 - False statement to obtain insurance - Court summons
+RT88499 - Withhold information to obtain insurance - Court summons
+RT88507 - Drive otherwise than in accordance with licence (non-endorsable - expired but entitled) - £50 0 points non-endorsable
+RT88509 - Drive motor vehicle whilst not wearing seat belt - 3 points endorsable
+RT88512 - Front seat passenger over 14 fail to wear seat belt - £50-£100 non-endorsable
+RT88513 - Rear seat passenger over 14 fail to wear seat belt - £50-£100 non-endorsable
+RT88575 - Drive mechanically propelled vehicle without reasonable consideration - 3 points endorsable
+RT88576 - Drive mechanically propelled vehicle without due care and attention - 3-9 points endorsable
+RT88751 - Fail to comply with yellow zig-zag lines (with time plate) - £50 non-endorsable
+RT88756 - Fail to stop at STOP sign - 3 points £100 endorsable
+RT88760 - Fail to comply with solid white line road markings - 3 points £100 endorsable
+RT88966 - Fail to comply with No Entry sign - 3 points endorsable
+RT88971 - Contravene Sec.36 traffic sign (red light/no entry etc.) - 3 points £100 endorsable
+RT88975 - Fail to comply with red traffic light/signal (non-motorway) - 3 points endorsable
+RC86011 - Leave motor vehicle unattended engine running/parking brake not set (quitting) - £50-£100 non-endorsable
+RC86027 - Use passenger vehicle (car) with tyres tread <1.6mm - 3 points £100 endorsable
+RC86028 - Use goods vehicle ≤3500kg with tyres tread <1.6mm - 3 points endorsable
+RC86029 - Use light trailer with tyres tread insufficient - 3 points endorsable
+RC86092 - Motor vehicle cause unnecessary noise (incl in-car entertainment) - £50 non-endorsable
+RC86094 - Sound horn whilst stationary - £50 non-endorsable
+RC86095 - Sound horn at night (23:30-07:00) - £50 non-endorsable
+RC86400 - Use motor vehicle/trailer with incorrectly inflated tyre - 3 points endorsable
+RC86402 - Tyre lump bulge or tear - 3 points endorsable
+RC86405 - Cause unnecessary obstruction by motor vehicle/trailer (outside Greater London) - £50-£100 non-endorsable
+RC86814 - Driver fail to maintain proper control of motor vehicle - 3 points £100 endorsable
+RC86820 - Use handheld mobile phone/device whilst driving - 6 points £200 endorsable
+RC86823 - Supervisor use handheld mobile phone/device - 6 points £200 endorsable
+RV86019 - Use handheld mobile phone/device while driving (variant) - 6 points £200 endorsable
+RL89142 - Allow vehicle to remain stationary during darkness without lights - £50 non-endorsable
+RL89161 - Use motor vehicle fail to maintain lamps/reflectors/rear markings clean - £50-£100 non-endorsable
+RL89162 - Use motor vehicle headlamp not lit in poor visibility/darkness - £50-£100 non-endorsable
+RL89166 - Use vehicle on road without lights at night/in reduced visibility - £50-£100 non-endorsable
+RL89177 - Misuse of front fog lamps - 3 points £100 endorsable
+RL89178 - Misuse of rear fog lamps - 3 points £100 endorsable
+RR84019 - Exceed 70mph motorway limit - 3-6 points endorsable
+RR84061 - Exceed 30mph on restricted road - 3 points endorsable
+RR84071 - Exceed 60mph motorway (passenger vehicle + trailer) - 3 points endorsable
+RR84130 - Exceed 50mph dual carriageway variants - 3 points endorsable
+RR84160 - Exceed temporary 60mph restriction on motorway - 3 points endorsable
+RR84163 - Exceed 60mph single carriageway variants - 3 points endorsable
+RR84167 - Exceed 60mph special road/motorway - 3 points endorsable
+RR84171 - Contravene road sign contrary to local TRO - £50-£100 non-endorsable
+RR84203 - Exceed limit for goods vehicle (various) - 3 points endorsable
+RR84207 - Exceed limit for passenger vehicle (various) - 3 points endorsable
+RR84228 - Exceed variable speed limit (20/30/40/50/60mph) - 3 points endorsable
+VE94134 - Drive MV with VRM failing to conform/obscured - 3-9 points endorsable
+VE94148 - Drive vehicle no front registration plate - £50-£100 non-endorsable
+VE94150 - Fail to display rear VRM/number plate - £50-£100 non-endorsable
+VE94152 - VRM obscured/indistinguishable - £50-£100 non-endorsable
+ZP97001 - Stop vehicle within pedestrian crossing limits - £50 non-endorsable
+ZP97003 - Stop on pedestrian crossing - £50 non-endorsable
+ZP97004 - Fail to stop at red light (pedestrian-activated Pelican/Puffin) - 3 points endorsable
+ZP97005 - Overtake within crossing limits - £50 non-endorsable
+HY80020 - Wilful obstruction of highway with motor vehicle - Court summons
+ME82001 - Drive in wrong direction on motorway - 3 points endorsable
+ME82002 - Drive on hard shoulder of motorway - 3 points endorsable
+TS16001 - Motor vehicle fail to accord precedence to pedestrian at Zebra crossing - 3 points endorsable`;
+
+const offences = raw.trim().split('\n').map(line => {
+  const parts = line.split(' - ');
+  const code = parts[0].trim();
+  const desc = parts[1] ? parts[1].trim() : '';
+  const penalty = parts.slice(2).join(' - ').trim();
+  const lp = penalty.toLowerCase();
+  let type = 'non-endorsable';
+  if (lp.includes('court summons')) type = 'court';
+  else if (lp.includes('endorsable') && !lp.includes('non-endorsable')) type = 'endorsable';
+  return { code, desc, penalty, type, raw: line.toLowerCase() };
+});
+
+function highlight(text, query) {
+  if (!query) return text;
+  const escaped = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  return text.replace(new RegExp(`(${escaped})`, 'gi'), '<mark>$1</mark>');
+}
+
+function tagLabel(type) {
+  if (type === 'court') return 'COURT';
+  if (type === 'endorsable') return 'ENDORSABLE';
+  return 'NON-ENDORS.';
+}
+
+function render(query) {
+  const q = query.trim().toLowerCase();
+  const filtered = q ? offences.filter(o => o.raw.includes(q)) : offences;
+  document.getElementById('count').textContent = filtered.length;
+
+  const container = document.getElementById('results');
+  if (filtered.length === 0) {
+    container.innerHTML = `<div class="no-results"><div class="icon">🔍</div>No offences found for "${query}"</div>`;
+    return;
+  }
+
+  container.innerHTML = filtered.map((o, i) => `
+    <div class="card ${o.type}" onclick="toggle(this)">
+      <div class="card-header">
+        <div class="code">${highlight(o.code, query)}</div>
+        <div class="tag ${o.type}">${tagLabel(o.type)}</div>
+      </div>
+      <div class="desc">${highlight(o.desc, query)}</div>
+      <div class="penalty">${highlight(o.penalty, query)}</div>
+      <div class="card-detail">
+        <div class="detail-row"><div class="detail-label">Code</div><div class="detail-val">${o.code}</div></div>
+        <div class="detail-row"><div class="detail-label">Offence</div><div class="detail-val">${o.desc}</div></div>
+        <div class="detail-row"><div class="detail-label">Penalty</div><div class="detail-val">${o.penalty}</div></div>
+        <div class="detail-row"><div class="detail-label">Type</div><div class="detail-val">${o.type === 'court' ? 'Court summons' : o.type === 'endorsable' ? 'Endorsable' : 'Non-endorsable'}</div></div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function toggle(card) {
+  const isOpen = card.classList.contains('open');
+  document.querySelectorAll('.card.open').forEach(c => c.classList.remove('open'));
+  if (!isOpen) card.classList.add('open');
+}
+
+function clearSearch() {
+  document.getElementById('search').value = '';
+  document.getElementById('clearBtn').style.display = 'none';
+  render('');
+}
+
+document.getElementById('search').addEventListener('input', function() {
+  document.getElementById('clearBtn').style.display = this.value ? 'block' : 'none';
+  render(this.value);
+});
+
+render('');
+</script>
+</body>
+</html>
